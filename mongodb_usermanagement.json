@@ -1,0 +1,16 @@
+Creating New User:-
+use admin
+db.createUser(
+   {
+     user: "admin",
+     pwd: passwordPrompt(),  // Or  "<cleartext password>"
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+);
+
+Update user password:-
+db.changeUserPassword("admin", passwordPrompt());
+
+Add new roles to a user:-
+
+Remove any role from the user:-
