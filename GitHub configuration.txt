@@ -1,0 +1,57 @@
+=======Configurations===== 
+1. Create account in GitHub.
+2. Create a new repository in your account where you want to add your project work.
+3. Download Git app in your local computer and Install it in your system.
+4. Create a workspace/folder where you want to store your project in your local system.
+
+5. Open Git bash from your system workspace.
+6. Initiate your local repository git in your workspace.
+	Comm: $ git init
+
+7. Connect your git server using add origin comment. (If you want to do the operation Push and Pul the always use SSH link other wise you can use HTTP link)
+	New Add Comm: $ git remote add origin "enter your repository clone link"
+	Update Comm: $ git remote set-url origin "enter your repository clone link"
+
+	Check origin comm: $ git remote -v
+
+8. check SSH connection status.
+	comm: $ ssh -T git@github.com
+9. If connection is not present, then you have to connect using followed steps.
+	A. generate SSH keygen file in your system. (Which will use for all the project using same account)
+		Comm: $ ssh-keygen
+	B. After generating the file you can see the SSH Key using "cat" comment.
+		Comm: $ cat filename.pub
+	C. Copy the key value from this file.
+	D. Addf SSH keys in your GitHub account (Account -> Setting -> SSH & GPG Keys -> New SSH Key)
+	E. After that you just check the final connection status using STEP-8.
+
+=======Local Operations===== 
+10. Fatch/Pull/Download the repository
+	Comm: $ git pull origin master       --------> Master is the branch name.
+
+11. See the status of your current branch.
+	Comm: $ git status
+
+12. Add changes in local repository.
+	For single file Comm: git add "your file name"
+	For All file comm: $ git add -A
+
+13. Commit the changes in your local repository.
+	For single file Comm: $ git commit -m "Your remarks or comment for this change"
+	For All file comm: $ git commit -a -m "Your remarks or comment for this change"
+
+14. Add/Delete branch in your local repository.
+	Add branch comm: $ git branch newbranchname
+	Delete branch comm: 
+
+15. Checkout to another branch
+	Comm: $ git checkout newbranch
+
+16. Merge branch with master
+	comm: $ git merge newbranchname
+
+
+=======Update or Push into Server==========
+17. update in master branch (Complete the all update and after commited)
+	Comm: $ git push origin branchname
+	Comm: $ git push origin master
