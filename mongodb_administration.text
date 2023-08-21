@@ -1,3 +1,50 @@
+Connect MongoDB Shell:
+mongosh "mongodb://root:pass1234@localhost:27017"
+
+Shee the databases:
+show databases
+
+Change to databases:
+use databasename
+use admin
+
+-----------User Administration----------
+To Shee the all type of roles
+use admin
+db.runCommand({ rolesInfo: 1, showBuiltinRoles: true });
+
+To see the role details
+db.getRole("root")
+
+To create the new roles
+use admin
+db.createRole({
+  role: "viewOnlyViews",
+  privileges: [
+    {
+      resource: { db: "admin", collection: "" },
+      actions: ["find"]
+    }
+  ],
+  roles: []
+});
+
+
+
+
+
+
+------DATABASE BACKUP------
+Database backup from one database to another directly
+mongorestore --uri="mongodb://username:password@hostname:port" --authenticationDatabase=admin --nsFrom="sourceDatabase.*" --nsTo="targetDatabase.*"
+
+
+
+
+
+
+
+
 Creating New User:-
 use admin
 db.createUser(
