@@ -9,6 +9,8 @@ use databasename
 use admin
 
 -----------User Administration----------
+https://www.mongodb.com/docs/manual/reference/privilege-actions/
+
 To Shee the all type of roles
 use admin
 db.runCommand({ rolesInfo: 1, showBuiltinRoles: true });
@@ -29,12 +31,45 @@ db.createRole({
   roles: []
 });
 
+use admin
+db.createRole({
+  role: "customProduction",
+  privileges: [
+    {
+      resource: { anyResource: true },
+      actions: ["find", "insert", "update", "remove", "createCollection", "createIndex", "listSessions", "killAnySession"]
+    }
+  ],
+  roles: []
+});
+
+-------CREATE NEW USER----
+use admin
+db.createUser({
+  user: "username",
+  pwd: "password",
+  roles: [{ role: "readWrite", db: "yourDatabase" }]
+});
+
+-----DROP EXISTING USER---
+db.dropUser("username");
+
+---- REVOVE ROLE FROM USER---
+db.revokeRolesFromUser("username", ["customRole"]);
 
 
 
+----DROP ROLE--------
+db.runCommand({ dropRole: "customRole" });
+
+---GRAND ROLE TO DB---
+db.grantRolesToUser("prod_admin", ["customProduction"]);
 
 
 ------DATABASE BACKUP------
+Create a specific database backup
+mongodump --uri="mongodb://root:JN23$W45E63H!54JK$754J3WE@localhost:27017/breatheagain" --authenticationDatabase=admin
+
 Database backup from one database to another directly
 mongorestore --uri="mongodb://username:password@hostname:port" --authenticationDatabase=admin --nsFrom="sourceDatabase.*" --nsTo="targetDatabase.*"
 
@@ -61,3 +96,74 @@ db.changeUserPassword("admin", passwordPrompt());
 Add new roles to a user:-
 
 Remove any role from the user:-
+
+
+
+===========STEP BY STEP===========
+1. Create the database
+2. Open MongoSH
+3. Use Admin Database
+  -> use admin
+4. Check the user list
+  -> db.getUsers()
+3. Use newly created database
+  -> use newdatabase
+5. Check the DB role list
+  -> use newdatabase
+  -> db.runCommand({ rolesInfo: 1, showBuiltinRoles: true });
+6. See the role privilage
+  -> use newdatabase
+  -> db.getRole("yourRoleName", { showPrivileges: true })
+7. Create the new role
+  -> use newdatabase
+  -> db.createRole({
+      role: "customProduction",
+      privileges: [
+        {
+          resource: { db:"ba_prolive", collection:"" },
+          actions: ["find", "insert", "update", "remove", "createCollection", "createIndex", "listSessions", "killAnySession"]
+        }
+      ],
+      roles: []
+    });
+8. Update privilage in a role
+  -> db.updateRole("customProduction", {
+      privileges: [
+        { 
+          resource: { db: "ba_prolive", collection: "" }, 
+          actions: ["find", "insert", "update", "remove", "createCollection", "createIndex", "listSessions", "killAnySession"] 
+        },
+      ]
+    });
+9. Delete the role from database
+  -> db.runCommand({ dropRole: "customProduction" });
+
+10. See the list of all users
+  -> use admin
+  -> db.getUsers()
+10. Grand role to a user
+  -> use admin
+  -> db.grantRolesToUser("username", [
+      { role: "roleName", db: "yourDatabase" }
+    ]);
+11. Revoke role from a user
+  -> use admin
+  -> db.revokeRolesFromUser("username", [
+      { role: "roleName", db: "yourDatabase" }
+    ]);
+12. Change password
+  -> use admin
+  -> db.changeUserPassword("admin", passwordPrompt());
+13. Delete a user
+  -> use admin
+  -> db.dropUser("prod_admin");
+
+
+
+
+
+
+
+
+
+
