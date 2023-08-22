@@ -68,7 +68,7 @@ db.grantRolesToUser("prod_admin", ["customProduction"]);
 
 ------DATABASE BACKUP------
 Create a specific database backup
-mongodump --uri="mongodb://root:JN23$W45E63H!54JK$754J3WE@localhost:27017/breatheagain" --authenticationDatabase=admin
+mongodump --uri="mongodb://root:***@localhost:27017/breatheagain" --authenticationDatabase=admin
 
 Database backup from one database to another directly
 mongorestore --uri="mongodb://username:password@hostname:port" --authenticationDatabase=admin --nsFrom="sourceDatabase.*" --nsTo="targetDatabase.*"
